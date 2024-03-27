@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 from src.services import ai_client
 
-class payload(BaseModel):
+class Payload(BaseModel):
   message: str
 
 router = APIRouter(
@@ -15,6 +15,6 @@ gpt = ai_client.AiClient()
 
 
 @router.post('/')
-async def conversation(payload: payload):
+async def conversation(payload: Payload):
   messages = gpt.chat_generation(message=payload.message)
   return messages
