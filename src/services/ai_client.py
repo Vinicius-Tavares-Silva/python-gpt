@@ -9,30 +9,21 @@ class AiClient:
   def __init__(self) -> None:
     self.client = OpenAI(api_key=API_KEY)
 
-  def chat_generation(self, messages) -> dict:
+  def chat_generation(self, message: list = None) -> str:
+    format_message = { "role": "user", "content": message }
     response = self.client.chat.completions.create(
       model=CHAT_MODEL,
-      messages=messages
+      messages=[format_message]
     )
-    return response
+    return {
+      'user_message': message,
+      'gpt_message': response.choices[0].message.content
+    }
 
-  def transcription_speech(self, path) -> dict:
+  def transcription_speech(self, path: str = None) -> str:
     audio_file= open(path, 'rb')
     transcription = self.client.audio.transcriptions.create(
       model=TRANSCRIPTION_MODEL,
       file=audio_file
     )
-    return transcription
-
-# print('Vamos la!')
-# gpt = AiClient()
-
-# messages = [
-#   {"role": "user", "content": "Ola, tudo bom?"}
-# ]
-
-# chat = gpt.chat_generation(messages)
-# print(chat.choices[0].message.content)
-
-# audio_transcription = gpt.transcription_speech("/mnt/c/Users/Vini_/Downloads/audio_test.mp3")
-# print(audio_transcription)
+    return transcription.text
