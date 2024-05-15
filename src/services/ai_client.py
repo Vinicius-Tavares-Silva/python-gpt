@@ -2,7 +2,7 @@ from openai import OpenAI
 
 CHAT_MODEL = 'gpt-3.5-turbo'
 TRANSCRIPTION_MODEL = 'whisper-1'
-API_KEY = 'sess-WzEmppv3c5dJa7f7mzdZ0kQ7B447fbfsgWKpTP12'
+API_KEY = 'API_KEY'
 
 class AiClient:
 
